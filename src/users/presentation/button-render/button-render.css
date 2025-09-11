@@ -1,0 +1,18 @@
+
+button{
+
+    padding: 0.8em;
+    border-radius: 12%;
+    margin-top: 0.5rem;
+    
+    background-color: rgba(61, 61, 61, 0.197);
+
+}
+
+#current-page {
+
+    padding: 0.8em;
+    font-weight: bolder;
+    font-size: 1rem;
+
+}

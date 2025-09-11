@@ -1,0 +1,53 @@
+
+.hidden-modal{
+    display: none;
+} 
+
+
+.modal-dialog {
+    position: fixed;
+    left: 0 ;
+    top: 0 ;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    background-color: rgba(0 0 0 / 0.6);
+
+}
+
+form {
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 2em;
+    background-color: rgba(62, 78, 119, 0.9);
+    border-radius: 5%;
+
+
+}
+
+input {
+ 
+    padding: 0.5rem;
+    margin-bottom: 0.8rem;
+    border-radius: 1%;
+}
+
+ form span, label {
+    color: white;
+    font-weight:500;
+    
+}
+
+form button {
+    width: 7.5rem;
+    margin: auto;
+    font-weight:500;
+    color: white;
+    background-color: rgba(44, 44, 111, 0.499);
+    
+
+}
