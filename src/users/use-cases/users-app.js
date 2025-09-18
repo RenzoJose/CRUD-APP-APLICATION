@@ -19,8 +19,12 @@ export const usersApp = async ( element ) => {
     addButtonRender( element, showModal ); //BOTON + PARA RENDERIZAR EL MODAL
 
     modalRender( element, async ( userLike ) => {
-        const user = await saveUser( userLike ); // el argumento es user{DATOS} del sumit del modal QUE SE PASA POR REFERENCIA porque es el producto de esa funcion, y saveUser a su vez devuelve creacion del nuevo usuario en el server (metodo POST)
-        usersStore.onUserChanged( user );
+            
+        const user = await saveUser( userLike ).catch( e => console.warn( e ) );
+        usersStore.onUserChanged( user ).catch( e => console.warn(`ausencia de ID por error anterior ${e}`));
         renderTable();
-    } );
+    });
 }
+
+//* NOTE: 
+// el argumento es user{DATOS} del sumit del modal QUE SE PASA POR REFERENCIA porque es el producto de esa funcion, y saveUser a su vez devuelve creacion del nuevo usuario en el server (metodo POST) o actualizacion PARCIAL con (metodo PATCH)

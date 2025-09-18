@@ -1,4 +1,4 @@
-import { localhostUserModel } from "../mappers/localhost-to-user_mappers";
+import { localhostToUser } from "../mappers/localhost-to-user_mappers";
 
 
 export const getUserById = async ( id ) => {
@@ -7,8 +7,7 @@ export const getUserById = async ( id ) => {
     const response = await fetch( url );
     const data = await response.json();
 
-    const user = localhostUserModel( data ); //my mappers dev
-    console.log( user );
+    const user = localhostToUser( data ); //my mappers dev
     
     return user; 
 

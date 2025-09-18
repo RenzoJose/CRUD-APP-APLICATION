@@ -13,7 +13,8 @@ let modal, form, loadUser = {};
  */
 export const showModal = async ( id ) =>{
     modal?.classList.remove( 'hidden-modal' ); 
-    // FIXME: loadUser = {};
+    loadUser = {};
+     
     if ( !id ) return; // si no existe retorna no continues
     const user = await getUserById( id );
     setFormValue( user );
@@ -64,10 +65,10 @@ export const modalRender = ( element, callBackNewUser ) => {
     form.addEventListener( 'submit', ( event ) => {
        
         event.preventDefault(); // cancela la reacarga por defecto submit
-   
-        const formData = new FormData( form );
-        const check = document.querySelector('[name="isActive"]')
-        const userData = {...loadUser}; //FIXME: WITH {} AND {...loadUser}
+
+        const check     = document.querySelector('[name="isActive"]')
+        const formData  = new FormData( form );
+        const userData  = {...loadUser}; //FIXME: WITH {} AND {...loadUser}
         
         
         for (const [ key, value ] of formData ) {
@@ -84,7 +85,7 @@ export const modalRender = ( element, callBackNewUser ) => {
         // verficico por fuera del for el estado del formulario de name: isActive, para agregarlo al objeto plano, este activo o no
         // porque new FormData( form ) solo incluye los campos "activos" (con valor)
         userData['isActive'] = check.checked
-        
+                
         hiddenModal(); // al darle click oculto el modal 
         callBackNewUser( userData ); /// llamo a la funcion y le paso los datos 
     })

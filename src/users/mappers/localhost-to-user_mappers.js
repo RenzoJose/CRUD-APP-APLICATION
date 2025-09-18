@@ -3,9 +3,9 @@ import{ User} from '../models/users'
 /**
  * 
  * @param { like<User> } localhostUser 
- * @returns { User }
+ * @returns { User } keys dev
  */
-export const localhostUserModel = ( localhostUser ) => {
+export const localhostToUser = ( localhostUser ) => {
   
     // desestructuro la data --> que es un arreglo de objetos data: [{localhostUser}]
     const  {
@@ -13,8 +13,8 @@ export const localhostUserModel = ( localhostUser ) => {
         isActive,
         balance,
         avatar,
-        first_name: firstName,
-        last_name:lastName,
+        first_name,
+        last_name,
         gender,
 
     } = localhostUser;
@@ -25,8 +25,8 @@ export const localhostUserModel = ( localhostUser ) => {
         isActive,
         balance,
         avatar,
-        firstName,
-        lastName,
+        firstName:first_name,
+        lastName:last_name,
         gender,
     })
 

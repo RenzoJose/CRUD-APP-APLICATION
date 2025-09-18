@@ -3,6 +3,7 @@
 import '../table-render/render-table.css'
 import userStore from '../../store/users-store'
 import { showModal } from '../modal-render/modal-render';
+import { deleteUser } from '../../use-cases/delete-user';
 
 let table; //CREO UN ESPACIO EN  MEMORIA PARA LA TABLA y que este disponible globalmente 
 const createTable = () => {
@@ -28,27 +29,52 @@ const createTable = () => {
 }
 
 
-/**callback anchor select 
+/**
  * 
  * @param { PointerEvent } event 
  */
 const selectUserListener = ( event ) => {
        
-    const selectUser = event.target.className === 'select-user'
-    // console.log({ selectUser });
-    
+    const selectUser = event.target.className === 'select-user';
+        
     if ( selectUser ){
 
       const id = event.target.getAttribute( 'data-id' );
-    //   console.log({ id });
-      
+
       showModal( id )
     }
     
 
 }
+
 /**
  * 
+ * @param { PointerEvent } event 
+ */
+const deleteUserListener = async ( event ) => {
+
+    const selectUser = event.target.className === 'delete-user';
+
+    if ( !selectUser ) return;
+    
+
+    const id = event.target.getAttribute('data-id');
+    try {
+        await deleteUser( id ); 
+        await userStore.reloadPage();
+        document.querySelector('#current-page').innerText = userStore.getcurrentPage(); // actualizo el numero de pagina <span>
+        renderTable();
+    } catch (error) {
+        alert('Could Not Be Deleted ', error )
+    }
+    
+    
+
+}
+
+
+/**
+ *  
  * @param { HTMLDivElement } element 
  */
 export const renderTable = ( element )=> {
@@ -59,8 +85,9 @@ export const renderTable = ( element )=> {
     if ( !table ) {
         table = createTable();
         element.append( table );
-    }
-    table.addEventListener('click', selectUserListener );
+   
+    table.addEventListener('click', selectUserListener );    
+    table.addEventListener('click', deleteUserListener); }
     let tableBody = ''; // lo defino vacio para que no redenrize el inicio undefined
 
     users.forEach( user => {
@@ -76,18 +103,16 @@ export const renderTable = ( element )=> {
                 |
                 <a href='#/' class='delete-user'data-id='${ user.id }'>Delete</a>
             
-            </td>
-        </tr>
+            </td>    
+        </tr>    
         `
 
-    });
+    });    
 
     table.querySelector('tbody').innerHTML = tableBody
 
 
-}
+}    
 
-// note: el atributo data-*, permite almacenar datos personalizados privados en cualquier elemento HTML
-// Estos datos se pueden acceder y manipular a través de JavaScrip
-// Los atributos deben empezar con data- seguido de un nombre válido
-//* Acceso con JavaScript a los valores de estos atributos usando la interfaz dataset de un elemento o el método getAttribute(). 
+
+
